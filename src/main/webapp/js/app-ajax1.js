@@ -1,4 +1,4 @@
-
+ 
 function show() {
 			$.ajax({
 				url : 'GetReportServlet',
