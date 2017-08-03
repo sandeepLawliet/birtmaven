@@ -21,20 +21,36 @@ import org.eclipse.birt.report.engine.api.IReportEngineFactory;
 
 
 public class BirtFactory {
+	
+	/**
+	 * The ReportEngine class represents the BIRT Report Engine. 
+	 * There is a significant cost associated with creating an engine instance, due primarily to the cost of loading extensions. 
+	 * Therefore, each application should create just one ReportEngine instance and use it to run multiple reports. 
+	 * 
+	 */
 	private static IReportEngine birtEngine = null;
 
 	private static Properties configProps = new Properties();
 
 	private final static String configFile = "BirtConfig.properties";
 
+	/* Initializing Engine configurations
+	 */
 	public static synchronized void initBirtConfig() {
 	 loadEngineProps();
 	}
 
+	/**
+	 * This method is responsible for configuring engine's Log Level, retrieving the new IReportEngine instance.
+	 * 
+	 * @param sc
+	 * @return IReportEngine instance
+	 */
 	public static synchronized IReportEngine getBirtEngine(ServletContext sc) {
 	 if (birtEngine == null) 
 	 {
 	  EngineConfig config = new EngineConfig();
+	  
 	  if( configProps != null){
 	   String logLevel = configProps.getProperty("logLevel");
 	   Level level = Level.OFF;
@@ -67,12 +83,17 @@ public class BirtFactory {
 	   config.setLogConfig(configProps.getProperty("logDirectory"), level);
 	  }
 
+	  /** Set parent classloader for engine */
 	  config.getAppContext().put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, Thread.currentThread().getContextClassLoader()); 
 	  
 	  IPlatformContext context = new PlatformServletContext( sc );
 	  config.setPlatformContext( context );
 
 
+	  /**
+	   * The report engine is created through a factory supplied by the Platform. Before creating the engine, 
+	   * you should start the Platform, which will load the appropriate plug-ins.
+	   */
 	  try
 	  {
 	   Platform.startup( config );
@@ -82,8 +103,10 @@ public class BirtFactory {
 	   e.printStackTrace( );
 	  }
 
-	  IReportEngineFactory factory = (IReportEngineFactory) Platform
-	  .createFactoryObject( IReportEngineFactory.EXTENSION_REPORT_ENGINE_FACTORY );
+	  /**
+	   * Creating new ReportEngine
+	   */
+	  IReportEngineFactory factory = (IReportEngineFactory) Platform.createFactoryObject( IReportEngineFactory.EXTENSION_REPORT_ENGINE_FACTORY );
 	  birtEngine = factory.createReportEngine( config );
 
 
@@ -91,6 +114,9 @@ public class BirtFactory {
 	 return birtEngine;
 	}
 
+	/**
+	 * After using the engine, function to do clean up work, which includes unloading the extensions.
+	 */
 	public static synchronized void destroyBirtEngine() {
 	 if (birtEngine == null) {
 	  return;
@@ -100,10 +126,14 @@ public class BirtFactory {
 	 birtEngine = null;
 	}
 
+	
 	public Object clone() throws CloneNotSupportedException {
 	 throw new CloneNotSupportedException();
 	}
 
+	/**
+	 * load the configurations file.
+	 */
 	private static void loadEngineProps() {
 	 try {
 	  //Config File must be in classpath

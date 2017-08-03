@@ -1,13 +1,11 @@
-/**
- * 
- */
+
 package com.neurosys.birt.poc.birtmaven;
 
 import java.io.IOException;
-
-
 import java.io.PrintWriter;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,6 +20,8 @@ import org.eclipse.birt.report.engine.api.EngineConstants;
 import org.eclipse.birt.report.engine.api.HTMLRenderContext;
 import org.eclipse.birt.report.engine.api.HTMLRenderOption;
 import org.eclipse.birt.report.engine.api.HTMLServerImageHandler;
+import org.eclipse.birt.report.engine.api.IGetParameterDefinitionTask;
+import org.eclipse.birt.report.engine.api.IParameterDefnBase;
 import org.eclipse.birt.report.engine.api.IReportEngine;
 import org.eclipse.birt.report.engine.api.IReportRunnable;
 import org.eclipse.birt.report.engine.api.IRunAndRenderTask;
@@ -37,16 +37,15 @@ import org.eclipse.birt.report.engine.api.IRunAndRenderTask;
  * @author Sandeep Kumar Singh
  *
  */
+
+
+/* Using annotation, ajax can easily call this servlet */
 @WebServlet("/GetReportServlet")
 public class BirtServlet extends HttpServlet {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	/**
-	 * Constructor of the object.
-	 */
+	
+	/* Instantiating Report Engine,  */ 
 	private IReportEngine birtReportEngine = null;
 	protected static Logger logger = Logger.getLogger( "org.eclipse.birt" );
 
@@ -72,16 +71,30 @@ public class BirtServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 	  throws ServletException, IOException {
 
-	 //get report name and launch the engine
+	 /** setting content type to response */
 	 resp.setContentType("text/html");
+	 
+	 /** commenting other types for future requirement */
 	 //resp.setContentType( "application/pdf" ); 
 	 //resp.setHeader ("Content-Disposition","inline; filename=test.pdf");  
 	
+	 /**
+	  *  The report parameters is of type java.lang.String 
+	  *  reportName: stores the name of the report
+	  */
+	 
 	 String reportName = req.getParameter("ReportName");
+	 String paramValue = req.getParameter("credits");
+	 
+	 
 	 ServletContext sc = req.getSession().getServletContext();
+	 
+	 /** Instantiating ReportEngine **/
 	 this.birtReportEngine = BirtFactory.getBirtEngine(sc);
 	 
-	 //setup image directory
+	 /**
+	  * 
+	  */
 	 HTMLRenderContext renderContext = new HTMLRenderContext();
 	 renderContext.setBaseImageURL(req.getContextPath()+"/images");
 	 renderContext.setImageDirectory(sc.getRealPath("/images"));
@@ -97,8 +110,26 @@ public class BirtServlet extends HttpServlet {
 	 {
 	  //Open report design
 	  design = birtReportEngine.openReportDesign( sc.getRealPath("/Reports")+"/"+reportName );
+	  
+	  IGetParameterDefinitionTask taskGetParameters = birtReportEngine.createGetParameterDefinitionTask(design);
+      
+      Collection params = taskGetParameters.getParameterDefns(true);
+      Iterator iter = params.iterator();
+      
+      HashMap<String, String> setParameters = new HashMap<String, String>();
+      setParameters.put("rp_customercredit", paramValue);
+      
+//      while (iter.hasNext()) {
+//      	
+//         
+//          	IParameterDefnBase param = (IParameterDefnBase) iter.next();
+//            //  System.out.println(param.getName() + ": " + param.getTypeName());
+//              setParameters.put(param.getName(), paramValue);
+//          }
+	  
 	  //create task to run and render report
 	  IRunAndRenderTask task = birtReportEngine.createRunAndRenderTask( design );  
+	  task.setParameterValues(setParameters);
 	  task.setAppContext( contextMap );
 	  
 	  //set output options
@@ -111,6 +142,7 @@ public class BirtServlet extends HttpServlet {
 	  task.setRenderOption(options);
 	  
 	  //run report
+	  
 	  /* converting html output to string */
 	  String output;
 	  task.run();

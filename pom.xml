@@ -25,7 +25,6 @@
     <scope>provided</scope>
 </dependency>
 
-
     <dependency>
       <groupId>javax.servlet.jsp</groupId>
       <artifactId>jsp-api</artifactId>
@@ -35,7 +34,7 @@
   </dependencies>
 
   <build>
-    <plugins>
+    <plugins>    
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>

@@ -13,7 +13,7 @@
          <!-- Engine Servlet -->
 	<servlet>
 	    <servlet-name>EngineServlet</servlet-name>
-	    <servlet-class>com.neurosys.birt.poc.birtmaven.DynamicReport</servlet-class>
+	    <servlet-class>com.neurosys.birt.poc.birtmaven.BirtServlet</servlet-class>
 	</servlet>
 	
 	<servlet-mapping>

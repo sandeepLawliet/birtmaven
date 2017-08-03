@@ -12,9 +12,12 @@
 </head>
 <body>
 
-	<form>
+
 		Enter Report Name: <input type="text" id="ReportName" />
-	</form>
+		Enter credit value: <input type="text" id="credits" />
+		
+
+	<button id="button" onclick="show()">generate Report</button>
 	<br>
 	<br>
 
