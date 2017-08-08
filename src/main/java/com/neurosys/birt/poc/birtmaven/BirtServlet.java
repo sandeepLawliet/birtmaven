@@ -3,7 +3,9 @@ package com.neurosys.birt.poc.birtmaven;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import java.util.ArrayList;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -86,7 +88,10 @@ public class BirtServlet extends HttpServlet {
 	 
 	 String reportName = req.getParameter("ReportName");
 	 String paramValue = req.getParameter("credits");
+
 	 ArrayList<String> paramName = new ArrayList<String>();
+
+
 	 
 	 
 	 ServletContext sc = req.getSession().getServletContext();
@@ -113,6 +118,7 @@ public class BirtServlet extends HttpServlet {
 	  //Open report design
 	  design = birtReportEngine.openReportDesign( sc.getRealPath("/Reports")+"/"+reportName );
 	  
+
 	  IGetParameterDefinitionTask taskGetParameters = birtReportEngine.createGetParameterDefinitionTask(design);      
       Collection params = taskGetParameters.getParameterDefns(true);
       HashMap<String, String> setParameters = new HashMap<String, String>();
@@ -133,8 +139,7 @@ public class BirtServlet extends HttpServlet {
       setParameters.put(paramName.get(0).toString(), paramValue);
       }
       
-      
-      
+
 	  //create task to run and render report
 	  IRunAndRenderTask task = birtReportEngine.createRunAndRenderTask( design );  
 	  task.setParameterValues(setParameters);
