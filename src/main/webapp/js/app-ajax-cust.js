@@ -4,7 +4,7 @@ function show() {
 				url : 'GetReportServlet',
 				data : {
 					ReportName : $('#ReportName').val(),
-					credits : $('#credits').val()
+					Cust : $('#Cust').val()
 				},
 				success : function(responseText) {
 					$('#ajaxGetUserServletResponse').html(responseText);

@@ -5,16 +5,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>jQuery, Ajax and Servlet/JSP integration example</title>
+<title>Birt ajax</title>
 
 <script src="http://code.jquery.com/jquery-1.10.2.js" type="text/javascript"></script>
-<script src="js/app-ajax1.js" type="text/javascript"></script>
+<script src="js/app-ajax.js" type="text/javascript"></script>
 </head>
 <body>
 
 
 		Enter Report Name: <input type="text" id="ReportName" />
-		Enter credit value: <input type="text" id="credits" />
+		Enter parameter value: <input type="number" id="credits" />
 		
 
 	<button id="button" onclick="show()">generate Report</button>

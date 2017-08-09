@@ -89,7 +89,7 @@ public class BirtServlet extends HttpServlet {
 	 String reportName = req.getParameter("ReportName");
 	 String paramValue = req.getParameter("credits");
 
-	 ArrayList<String> paramName = new ArrayList<String>();
+	 ArrayList<String> paramNames = new ArrayList<String>();
 
 
 	 
@@ -121,22 +121,19 @@ public class BirtServlet extends HttpServlet {
 
 	  IGetParameterDefinitionTask taskGetParameters = birtReportEngine.createGetParameterDefinitionTask(design);      
       Collection params = taskGetParameters.getParameterDefns(true);
+      
       HashMap<String, String> setParameters = new HashMap<String, String>();
+      
       if(params.size()!=0){
-      Iterator iter = params.iterator();
-      
-     
-     // setParameters.put("rp_customercredit", paramValue);
-      
-      while (iter.hasNext()) {
-      	
-         
-          	IParameterDefnBase param = (IParameterDefnBase) iter.next();
-            //  System.out.println(param.getName() + ": " + param.getTypeName());
-              paramName.add(param.getName());
-          }
-      
-      setParameters.put(paramName.get(0).toString(), paramValue);
+	      Iterator iter = params.iterator();	     
+	     // setParameters.put("rp_customercredit", paramValue);
+	      
+	      while (iter.hasNext()) {	             
+	          	IParameterDefnBase param = (IParameterDefnBase) iter.next();
+	              paramNames.add(param.getName());
+	          }
+	      
+	      setParameters.put(paramNames.get(0).toString(), paramValue);
       }
       
 
@@ -150,18 +147,14 @@ public class BirtServlet extends HttpServlet {
 	  options.setOutputFormat(HTMLRenderOption.OUTPUT_FORMAT_HTML);
 	  options.setEmbeddable(true);
 	  options.setImageHandler(new HTMLServerImageHandler());
-	  //options.setOutputFormat(HTMLRenderOption.OUTPUT_FORMAT_PDF);
 	  options.setOutputStream(resp.getOutputStream());
 	  task.setRenderOption(options);
 	  
 	  //run report
-	  
-	  /* converting html output to string */
-	  String output;
-	  task.run();
-	  output = resp.getOutputStream().toString();
+	  String output = null;
 	
-	 
+	  task.run();
+	  	output = resp.getOutputStream().toString();
 	  task.close();
 	  
 	  
@@ -181,17 +174,7 @@ public class BirtServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 	  throws ServletException, IOException {
 
-	 response.setContentType("text/html");
-	 PrintWriter out = response.getWriter();
-	 out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-	 out.println("<HTML>");
-	 out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
-	 out.println("  <BODY>");
-	 out.println(" Post does nothing");
-	 out.println("  </BODY>");
-	 out.println("</HTML>");
-	 out.flush();
-	 out.close();
+		doGet(request, response);
 	}
 
 	/**

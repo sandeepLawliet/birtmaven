@@ -11,34 +11,29 @@
   <url>http://maven.apache.org</url>
   
   <properties>
-     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
      <jettyVersion>9.2.6.v20141205</jettyVersion>
  </properties>
 
   <dependencies>
-   <!-- https://mvnrepository.com/artifact/org.eclipse.birt.runtime/org.eclipse.birt.runtime -->
 
 	<dependency>
 	    <groupId>org.eclipse.birt.runtime</groupId>
 	    <artifactId>org.eclipse.birt.runtime</artifactId>
 	    <version>4.4.1</version>
 	</dependency>
-	<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
 	<dependency>
 	    <groupId>javax.servlet</groupId>
 	    <artifactId>javax.servlet-api</artifactId>
 	    <version>3.0.1</version>
 	    <scope>provided</scope>
 	</dependency>
-
-
     <dependency>
       <groupId>javax.servlet.jsp</groupId>
       <artifactId>jsp-api</artifactId>
       <version>2.1</version>
       <scope>provided</scope>
     </dependency>
+    
   </dependencies>
 
   <build>
