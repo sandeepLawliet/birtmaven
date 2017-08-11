@@ -33,8 +33,16 @@
       <version>2.1</version>
       <scope>provided</scope>
     </dependency>
-    
+  <!-- https://mvnrepository.com/artifact/com.orientechnologies/orientdb-core -->
+
+<dependency>
+    <groupId>com.orientechnologies</groupId>
+    <artifactId>orientdb-jdbc</artifactId>
+    <version>3.0.0m2</version>
+</dependency>
   </dependencies>
+  
+  
 
   <build>
     <plugins>    
