@@ -32,6 +32,7 @@ import org.eclipse.birt.report.engine.api.IRunAndRenderTask;
 
 /*
  * Copyright Â©2017 Neurosystems Technologies Pvt. Ltd. All Rights reserved. This material 
+
  * contains confidential and proprietary information of Neurosystems Technologies. 
  * Any disclosure, reproduction, dissemination or distribution of the material 
  * contained herein is strictly prohibited.
@@ -87,8 +88,8 @@ public class BirtServlet extends HttpServlet {
 	  */
 	 
 	 String reportName = req.getParameter("ReportName");
-	 String startDate = req.getParameter("startDate");
-	 String endDate = req.getParameter("endDate");
+	 String startDate = (String)req.getParameter("startDate");
+	 String endDate = (String)req.getParameter("endDate");
 	 
 	 ArrayList<String> paramNames = new ArrayList<String>();
 

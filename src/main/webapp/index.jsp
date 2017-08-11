@@ -17,8 +17,8 @@
 		<br>
 		<br>
 		<div>
-		Enter from Date: <input type="text" id="startDate" />
-		Enter to Date: <input type="text" id="endDate" />
+		Enter from Date: <input type="date" id="startDate" />
+		Enter to Date: <input type="date" id="endDate" />
 		<button id="button" onclick="show()">generate Report</button>
 		</div>
 
