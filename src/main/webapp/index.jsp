@@ -14,10 +14,15 @@
 
 
 		Enter Report Name: <input type="text" id="ReportName" />
-		Enter parameter value: <input type="number" id="credits" />
-		
+		<br>
+		<br>
+		<div>
+		Enter from Date: <input type="text" id="startDate" />
+		Enter to Date: <input type="text" id="endDate" />
+		<button id="button" onclick="show()">generate Report</button>
+		</div>
 
-	<button id="button" onclick="show()">generate Report</button>
+	
 	<br>
 	<br>
 

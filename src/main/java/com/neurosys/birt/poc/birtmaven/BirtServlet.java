@@ -87,8 +87,9 @@ public class BirtServlet extends HttpServlet {
 	  */
 	 
 	 String reportName = req.getParameter("ReportName");
-	 String paramValue = req.getParameter("credits");
-
+	 String startDate = req.getParameter("startDate");
+	 String endDate = req.getParameter("endDate");
+	 
 	 ArrayList<String> paramNames = new ArrayList<String>();
 
 
@@ -122,24 +123,25 @@ public class BirtServlet extends HttpServlet {
 	  IGetParameterDefinitionTask taskGetParameters = birtReportEngine.createGetParameterDefinitionTask(design);      
       Collection params = taskGetParameters.getParameterDefns(true);
       
-      //HashMap<String, String> setParameters = new HashMap<String, String>();
+      HashMap<String, String> setParameters = new HashMap<String, String>();
       
-//      if(params.size()!=0){
-//	      Iterator iter = params.iterator();	     
-//	     // setParameters.put("rp_customercredit", paramValue);
-//	      
-//	      while (iter.hasNext()) {	             
-//	          	IParameterDefnBase param = (IParameterDefnBase) iter.next();
-//	              paramNames.add(param.getName());
-//	          }
-//	      
-//	      setParameters.put(paramNames.get(0).toString(), paramValue);
-//      }
+      if(params.size()!=0){
+	      Iterator iter = params.iterator();	     
+	    
+	      
+	      while (iter.hasNext()) {	             
+	          	IParameterDefnBase param = (IParameterDefnBase) iter.next();
+	              paramNames.add(param.getName());
+	          }
+	      
+	      setParameters.put(paramNames.get(0).toString(), startDate);
+	      setParameters.put(paramNames.get(1).toString(), endDate);
+      }
       
 
 	  //create task to run and render report
 	  IRunAndRenderTask task = birtReportEngine.createRunAndRenderTask( design );  
-	  //task.setParameterValues(setParameters);
+	  task.setParameterValues(setParameters);
 	  task.setAppContext( contextMap );
 	  
 	  //set output options

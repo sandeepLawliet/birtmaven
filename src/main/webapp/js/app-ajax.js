@@ -4,7 +4,8 @@ function show() {
 				url : 'GetReportServlet',
 				data : {
 					ReportName : $('#ReportName').val(),
-					credits : $('#credits').val()
+					startDate : $('#startDate').val(),
+					endDate : $('#endDate').val()
 				},
 				success : function(responseText) {
 					$('#ajaxGetUserServletResponse').html(responseText);

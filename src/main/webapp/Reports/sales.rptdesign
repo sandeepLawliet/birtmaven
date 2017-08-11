@@ -8,12 +8,12 @@
     <parameters>
         <scalar-parameter name="rp_fromdate" id="6">
             <property name="valueType">static</property>
-            <property name="isRequired">false</property>
+            <property name="isRequired">true</property>
             <property name="dataType">string</property>
             <property name="distinct">true</property>
-            <simple-property-list name="defaultValue">
+           <!-- <simple-property-list name="defaultValue">
                 <value type="constant">2017-03-01</value>
-            </simple-property-list>
+            </simple-property-list> -->
             <list-property name="selectionList"/>
             <property name="paramType">simple</property>
             <property name="controlType">text-box</property>
@@ -24,12 +24,12 @@
         </scalar-parameter>
         <scalar-parameter name="rp_todate" id="7">
             <property name="valueType">static</property>
-            <property name="isRequired">false</property>
+            <property name="isRequired">true</property>
             <property name="dataType">string</property>
             <property name="distinct">true</property>
-            <simple-property-list name="defaultValue">
+          <!--  <simple-property-list name="defaultValue">
                 <value type="constant">2017-03-30</value>
-            </simple-property-list>
+            </simple-property-list>-->
             <list-property name="selectionList"/>
             <property name="paramType">simple</property>
             <property name="controlType">text-box</property>
@@ -58,7 +58,7 @@
                 </ex-property>
             </list-property>
             <property name="odaDriverClass">com.orientechnologies.orient.jdbc.OrientJdbcDriver</property>
-            <property name="odaURL">jdbc:orient:remote:localhost/database_1</property>
+            <property name="odaURL">jdbc:orient:remote:192.168.1.22/database_1</property>
             <property name="odaUser">root</property>
             <encrypted-property name="odaPassword" encryptionID="base64">YWRtaW4=</encrypted-property>
         </oda-data-source>
