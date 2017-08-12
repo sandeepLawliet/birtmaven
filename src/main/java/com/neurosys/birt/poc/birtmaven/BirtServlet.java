@@ -153,11 +153,11 @@ public class BirtServlet extends HttpServlet {
 	  options.setOutputStream(resp.getOutputStream());
 	  task.setRenderOption(options);
 	  
-	  //run report
-	  String output = null;
+	 
 	
 	  task.run();
-	  	output = resp.getOutputStream().toString();
+	  	
+	  	
 	  task.close();
 	  
 	  
